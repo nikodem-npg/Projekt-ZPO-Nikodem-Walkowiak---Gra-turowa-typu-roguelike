@@ -25,3 +25,7 @@ jobs:
 
     - name: Kompilacja gry
       run: cmake --build build
+
+    - name: Uruchomienie testów
+      working-directory: build
+      run: ctest --output-on-failure
