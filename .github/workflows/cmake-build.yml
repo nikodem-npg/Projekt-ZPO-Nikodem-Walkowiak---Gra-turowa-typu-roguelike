@@ -1,0 +1,27 @@
+name: Automatyczne Budowanie C++
+
+# Pipeline uruchamia się przy każdym pushu na gałąź main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Pobranie kodu z repozytorium
+      uses: actions/checkout@v4
+
+    - name: Instalacja najnowszego kompilatora GCC 14 (dla C++23)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++-14
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+
+    - name: Konfiguracja projektu przez CMake
+      run: cmake -B build -S .
+
+    - name: Kompilacja gry
+      run: cmake --build build
