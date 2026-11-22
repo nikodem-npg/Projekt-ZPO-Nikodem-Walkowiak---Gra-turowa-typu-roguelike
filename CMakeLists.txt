@@ -32,3 +32,6 @@ set(HEADER_FILES
     #pliki nagłówkowe
 )
 add_executable(roguelike ${SOURCE_FILES} ${HEADER_FILES})
+if(MINGW)
+    target_link_libraries(roguelike PRIVATE stdc++exp)
+endif()
