@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(Catch2)
 enable_testing()
 
 # Tworzymy osobny program tylko do testów
-add_executable(testy tests/test.cpp)
+add_executable(testy tests/test.cpp ${SOURCE_FILES} ${HEADER_FILES})
 target_include_directories(testy PRIVATE src)
 target_link_libraries(testy PRIVATE Catch2::Catch2WithMain)
 add_test(NAME TestyJednostkowe COMMAND testy)
@@ -29,9 +29,11 @@ set(SOURCE_FILES
     #pliki źródłowe
 )
 set(HEADER_FILES
+    src/Pozycja.hpp
     #pliki nagłówkowe
 )
 add_executable(roguelike ${SOURCE_FILES} ${HEADER_FILES})
+target_include_directories(roguelike PRIVATE src)
 if(MINGW)
     target_link_libraries(roguelike PRIVATE stdc++exp)
 endif()
